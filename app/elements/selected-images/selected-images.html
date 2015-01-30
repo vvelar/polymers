@@ -1,0 +1,35 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/core-signals/core-signals.html">
+
+<polymer-element name="selected-images" attributes="images">
+  <template>
+    <link rel="stylesheet" href="selected-images.css">
+    <ul>
+      <template id="images" repeat="{{ item in items }}">
+        <li>{{ item }}</li>
+      </template>
+    </ul>
+    <core-signals on-core-signal-add-image="{{onAddImage}}"></core-signals>
+  </template>
+  <script>
+    (function () {
+
+      Polymer({
+        ready: function() {
+          this.items = [];
+        },
+
+        onAddImage: function(event, url){
+          this.items.push(url);
+        },
+
+        attributeChanged: function(attrName, oldVal, newVal) {
+          if(attrName == 'images'){
+            this.items = newVal;
+          }
+        }
+      });
+
+    })();
+  </script>
+</polymer-element>

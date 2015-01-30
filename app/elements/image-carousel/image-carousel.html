@@ -1,0 +1,44 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/core-image/core-image.html">
+<link rel="import" href="../../bower_components/polymer-ui-carousel/polymer-ui-carousel.html">
+
+<polymer-element name="image-carousel" attributes="images">
+  <template>
+    <link rel="stylesheet" href="image-carousel.css">
+    <paper-dialog id="carousel" backdrop transition="paper-dialog-transition-center" flex layout self-stretch>
+      <polymer-ui-carousel fullbleed vertical layout>
+        <template id="container" repeat="{{ item in items }}">
+            <core-image center-justified sizing="contain" src="{{item}}"></core-image>
+        </template>
+      </polymer-ui-carousel>
+      <paper-button class="close-dialog" affirmative hover on-click="{{closeCarousel}}">X</paper-button>
+    </paper-dialog>
+    <core-signals on-core-signal-add-image="{{onAddImage}}"></core-signals>
+  </template>
+  <script>
+    (function () {
+
+      Polymer({
+        ready: function() {
+          this.items = [
+            //"/images/1.jpg",
+            //"/images/2.jpg",
+            "/images/3.jpg"
+          ];
+        },
+
+        // define element prototype here
+        closeCarousel: function(e){
+            this.$.carousel.toggle();
+        },
+
+        onAddImage: function(event, url){
+          this.items.push(url);
+        }
+      });
+
+    })();
+  </script>
+</polymer-element>
